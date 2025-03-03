@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="database.js"></script>
+    <style>
+        header {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="eindopdracht.js"></script>
+    <script>
+        function toonAntwoord(antwoordFunc) {
+            try {
+                const antwoord = antwoordFunc(database)
+            } catch(e) {
+
+            }
+            document.getElementById(vraagNummer).innerText = JSON.stringify(antwoord, undefined, 2);
+        }
+
+        for(const vraag of vragen) {
+            const vraagHeader = document.createElement('header');
+            vraagHeader.textContent = "Vraag";
+
+            const vraagElement = document.createElement('div');
+
+            const antwoordHeader = document.createElement('header');
+            antwoordHeader.textContent = "Antwoord";
+
+            const antwoordElement = document.createElement('antwoord');
+            const lijnElement = document.createElement('hr');
+
+            vraagElement.textContent = vraag.vraag;
+            try {
+                const antwoord = vraag.antwoord(database)
+                antwoordElement.textContent = JSON.stringify(antwoord, undefined, 2);
+            } catch(e) {
+                antwoordElement.textContent = JSON.stringify(e.message, undefined, 2);
+                console.error();
+            }
+ 
+            const containerElement = document.createElement('div');
+            containerElement.appendChild(vraagHeader);
+            containerElement.appendChild(vraagElement);
+            containerElement.appendChild(antwoordHeader);
+            containerElement.appendChild(antwoordElement);
+            containerElement.appendChild(lijnElement);
+
+            document.body.appendChild(containerElement);
+        }
+    </script>
+</body>
+
+</html>
