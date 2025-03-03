@@ -10,14 +10,20 @@
     "locatie": {
       "stad": "Schiedam"
     },
-    "kennissen": []
+    "kennissen": [
+      {
+        "naam": "Sem",
+        "leeftijd": 17
+      }
+    ]
   },
   {
     "opVakantie": false,
     "naam": "Katharina",
     "emails": [
       "Leda43@hotmail.com",
-      "Geraldine_Lehner92@hotmail.com"
+      "Geraldine_Lehner92@hotmail.com",
+      "robinboers@outlook.com"
     ],
     "leeftijd": 45,
     "locatie": {
@@ -35,7 +41,8 @@
     "naam": "Hayley",
     "emails": [
       "Aaliyah.Corkery@hotmail.com",
-      "Kallie.Pfannerstill87@yahoo.com"
+      "Kallie.Pfannerstill87@yahoo.com",
+      "robinboers@outlook.com"
     ],
     "leeftijd": 21,
     "locatie": {
