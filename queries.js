@@ -28,7 +28,7 @@ const queries = [
     query: "SELECT naam, opVakantie, locatie.stad FROM people WHERE opVakantie = false AND locatie.stad = 'Amsterdam'",
   },
   {
-    title: "Wie is er niet op vakantie in Amsterdam?",
+    title: "Wie is er niet in Amsterdam op vakantie?",
     query: "SELECT naam, opVakantie, locatie.stad FROM people WHERE opVakantie = true AND locatie.stad != 'Amsterdam'",
   },
   {
