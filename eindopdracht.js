@@ -62,17 +62,62 @@ const vragen = [
   {
     vraag: "Wie heeft er tenminste 1 '@hotmail.com' mail adres?",
     antwoord: (database) => {
-      let n = [];
+      let acc = [];
 
       for (const p of database) {
         for (const e of p.emails) {
-          if (e.endsWith("@hotmail.com") && !n.includes(p.naam)) {
-            n.push(p.naam);
+          if (e.endsWith("@hotmail.com") && !acc.includes(p.naam)) {
+            acc.push(p.naam);
           }
         }
       }
 
-      return n;
+      return acc;
+    },
+  },
+  {
+    vraag:
+      "Alle bejaarden (65+) die modern genoeg zijn om een '@gmail.com' adres te hebben, maar er perongeluk twee(+) hebben aangemaakt.",
+    antwoord: (database) => {
+      let acc = [];
+      let n = 0;
+
+      for (const p of database) {
+        n = 0;
+
+        for (const e of p.emails) {
+          if (e.endsWith("@gmail.com")) n++;
+        }
+        if (n >= 2 && !acc.includes(p.naam)) {
+          acc.push(p.naam);
+        }
+      }
+
+      return acc;
+    },
+  },
+  {
+    vraag: "Wie gebruiken stiekem dezelfde email?",
+    antwoord: (database) => {
+      let acc = new Set();
+      let col = {};
+      let seen = [];
+
+      for (const p of database) {
+        for (const e of p.emails) {
+          if (seen.includes(e)) {
+            col[e].forEach((t) => acc.add(t.naam));
+            acc.add(p.naam);
+          }
+
+          if (!col[e]) col[e] = [];
+
+          col[e].push(p);
+          seen.push(e);
+        }
+      }
+
+      return [...acc];
     },
   },
 ];
