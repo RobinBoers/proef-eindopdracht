@@ -9,6 +9,12 @@
     <script async type="module">
       const database = await fetch("data.json").then((r) => r.json());
 
+      const serialize = (d) => {
+        if (typeof d === "string" || d instanceof String) return d;
+        if (Array.isArray(d)) return d.join(", ");
+        else return JSON.stringify(d, undefined, 2);
+      };
+
       for (const vraag of vragen) {
         const vraagHeader = document.createElement("header");
         const antwoordHeader = document.createElement("header");
@@ -19,8 +25,6 @@
         vraagHeader.textContent = "Vraag";
         vraagElement.textContent = vraag.vraag;
         antwoordHeader.textContent = "Antwoord";
-
-        const serialize = (d) => JSON.stringify(d, undefined, 2);
 
         try {
           const antwoord = vraag.antwoord(database);
