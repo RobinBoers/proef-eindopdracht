@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      header {
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="main.css" type="text/css" />
   </head>
   <body>
     <script src="eindopdracht.js"></script>
 
     <script async type="module">
-      const database = await fetch("data.json").then(r => r.json());
+      const database = await fetch("data.json").then((r) => r.json());
 
       for (const vraag of vragen) {
         const vraagHeader = document.createElement("header");
-        vraagHeader.textContent = "Vraag";
-
-        const vraagElement = document.createElement("div");
-
         const antwoordHeader = document.createElement("header");
-        antwoordHeader.textContent = "Antwoord";
-
+        const vraagElement = document.createElement("div");
         const antwoordElement = document.createElement("div");
         const lijnElement = document.createElement("hr");
 
+        vraagHeader.textContent = "Vraag";
         vraagElement.textContent = vraag.vraag;
-    
+        antwoordHeader.textContent = "Antwoord";
+
+        const serialize = (d) => JSON.stringify(d, undefined, 2);
+
         try {
           const antwoord = vraag.antwoord(database);
-          antwoordElement.textContent = JSON.stringify(antwoord, undefined, 2);
+          antwoordElement.textContent = serialize(antwoord);
         } catch (e) {
-          antwoordElement.textContent = JSON.stringify(e.message, undefined, 2);
-          console.error();
+          console.error(e.message);
+          antwoordElement.textContent = serialize(e.message);
         }
 
         const containerElement = document.createElement("div");
