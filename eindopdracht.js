@@ -64,28 +64,8 @@ const vragen = [
     antwoord: query((p) => p.emails.some((e) => e.endsWith("@hotmail.com"))),
   },
   {
-    vraag:
-      "Alle bejaarden (65+) die modern genoeg zijn om een '@gmail.com' adres te hebben, maar er perongeluk twee(+) hebben aangemaakt.",
-    antwoord: (database) => {
-      let acc = [],
-        n = 0;
-
-      for (const p of database) {
-        n = 0;
-
-        if (p.leeftijd < 65) continue;
-
-        for (const e of p.emails) {
-          if (e.endsWith("@gmail.com")) n++;
-        }
-
-        if (n >= 2 && !acc.includes(p.naam)) {
-          acc.push(p.naam);
-        }
-      }
-
-      return acc;
-    },
+    vraag: "Alle bejaarden (65+) die modern genoeg zijn om een '@gmail.com' adres te hebben, maar er perongeluk twee(+) hebben aangemaakt.",
+    antwoord: query((p) => p.leeftijd >= 65 && p.emails.filter((e) => e.endsWith("@gmail.com")).length >= 2)
   },
   {
     vraag: "Wie gebruiken stiekem dezelfde email?",
