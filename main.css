@@ -12,3 +12,9 @@ header {
   font-weight: bold;
   margin-top: 1em;
 }
+
+section {
+  border-bottom: 1px solid;
+  border-color: rgb(200, 200, 200);
+  padding-bottom: 1.5em;
+}

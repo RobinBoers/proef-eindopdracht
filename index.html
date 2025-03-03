@@ -21,7 +21,6 @@
         const antwoordHeader = document.createElement("header");
         const vraagElement = document.createElement("div");
         const antwoordElement = document.createElement("div");
-        const lijnElement = document.createElement("hr");
 
         vraagHeader.textContent = "Vraag";
         vraagElement.textContent = vraag.vraag;
@@ -35,12 +34,11 @@
           antwoordElement.textContent = serialize(e.message);
         }
 
-        const containerElement = document.createElement("div");
+        const containerElement = document.createElement("section");
         containerElement.appendChild(vraagHeader);
         containerElement.appendChild(vraagElement);
         containerElement.appendChild(antwoordHeader);
         containerElement.appendChild(antwoordElement);
-        containerElement.appendChild(lijnElement);
 
         document.body.appendChild(containerElement);
       }
