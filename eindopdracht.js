@@ -20,7 +20,7 @@ const vragen = [
     antwoord: count((p) => p.leeftijd > 35),
   },
   {
-    vraag: "Wie heeft er meer dan 2 kenissen?",
+    vraag: "Wie heeft er meer dan 2 kennissen?",
     antwoord: query((p) => p.kennissen.length > 2),
   },
   {
@@ -44,13 +44,13 @@ const vragen = [
     antwoord: query((p) => p.locatie.stad == "Amsterdam" && p.opVakantie),
   },
   {
-    vraag: "Wie heeft er meer dan 2 kenissen?",
+    vraag: "Wie heeft er meer dan 2 kennissen?",
     antwoord: (database) => {
       return "Deze vraag heeft u al gesteld.";
     },
   },
   {
-    vraag: "Wie heeft er meer dan 2 kenissen?",
+    vraag: "Wie heeft er meer dan 2 kennissen?",
     antwoord: (database) => {
       return "Deze vraag heeft u al twee keer gesteld.";
     },
