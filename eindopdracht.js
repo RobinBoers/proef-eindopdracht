@@ -61,33 +61,24 @@ const vragen = [
   },
   {
     vraag: "Wie heeft er tenminste 1 '@hotmail.com' mail adres?",
-    antwoord: (database) => {
-      let acc = [];
-
-      for (const p of database) {
-        for (const e of p.emails) {
-          if (e.endsWith("@hotmail.com") && !acc.includes(p.naam)) {
-            acc.push(p.naam);
-          }
-        }
-      }
-
-      return acc;
-    },
+    antwoord: query((p) => p.emails.some((e) => e.endsWith("@hotmail.com"))),
   },
   {
     vraag:
       "Alle bejaarden (65+) die modern genoeg zijn om een '@gmail.com' adres te hebben, maar er perongeluk twee(+) hebben aangemaakt.",
     antwoord: (database) => {
-      let acc = [];
-      let n = 0;
+      let acc = [],
+        n = 0;
 
       for (const p of database) {
         n = 0;
 
+        if (p.leeftijd < 65) continue;
+
         for (const e of p.emails) {
           if (e.endsWith("@gmail.com")) n++;
         }
+
         if (n >= 2 && !acc.includes(p.naam)) {
           acc.push(p.naam);
         }
