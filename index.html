@@ -23,26 +23,49 @@
       for (const query of queries) {
         const containerElement = document.createElement("section");
         const questionHeader = document.createElement("header");
-        const anwserHeader = document.createElement("header");
         const questionElement = document.createElement("div");
-        const anwserElement = document.createElement("div");
+        const table = document.createElement("table");
 
         questionHeader.textContent = "Vraag";
         questionElement.textContent = query.title;
-        anwserHeader.textContent = "Antwoord";
 
         try {
-          const result = await conn.query(query.query);
-          anwserElement.textContent = serialize(result);
+          const raw = await conn.query(query.query);
+          const data = raw.toArray().map((row) => row.toJSON());
+
+          const thead = document.createElement("thead");
+          const tbody = document.createElement("tbody");
+
+          const headerRow = document.createElement("tr");
+
+          Object.keys(data[0]).forEach((key) => {
+            const th = document.createElement("th");
+            th.textContent = key;
+            headerRow.appendChild(th);
+          });
+
+          thead.appendChild(headerRow);
+
+          data.forEach((obj) => {
+            const row = document.createElement("tr");
+            Object.values(obj).forEach((value) => {
+              const td = document.createElement("td");
+              td.textContent = value;
+              row.appendChild(td);
+            });
+            tbody.appendChild(row);
+          });
+
+          table.appendChild(thead);
+          table.appendChild(tbody);
         } catch (e) {
           console.error(e.message);
-          anwserElement.textContent = serialize(e.message);
+          table.textContent = serialize(e.message);
         }
 
         containerElement.appendChild(questionHeader);
         containerElement.appendChild(questionElement);
-        containerElement.appendChild(anwserHeader);
-        containerElement.appendChild(anwserElement);
+        containerElement.appendChild(table);
 
         document.body.appendChild(containerElement);
       }
