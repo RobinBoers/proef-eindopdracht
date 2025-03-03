@@ -52,7 +52,7 @@ const vragen = [
   {
     vraag: "Wie heeft er meer dan 2 kenissen?",
     antwoord: (database) => {
-      return "Deze vraag heeft u al twee keer gesteld";
+      return "Deze vraag heeft u al twee keer gesteld.";
     },
   },
   {
