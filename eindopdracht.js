@@ -56,6 +56,10 @@ const vragen = [
     },
   },
   {
+    vraag: "Wie heeft een naam die met een K begint?",
+    antwoord: query((p) => p.naam.startsWith("K")),
+  },
+  {
     vraag: "Wie heeft er tenminste 1 '@hotmail.com' mail adres?",
     antwoord: (database) => {
       let n = [];

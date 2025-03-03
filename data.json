@@ -1,6 +1,19 @@
 [
   {
     "opVakantie": false,
+    "naam": "Robin",
+    "emails": [
+      "robinboers@outlook.com",
+      "4410@schravenlant.nl"
+    ],
+    "leeftijd": 18,
+    "locatie": {
+      "stad": "Schiedam"
+    },
+    "kennissen": []
+  },
+  {
+    "opVakantie": false,
     "naam": "Katharina",
     "emails": [
       "Leda43@hotmail.com",
