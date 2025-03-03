@@ -33,7 +33,7 @@ const queries = [
   },
   {
     title: "Wie heeft er tenminste één '@hotmail.com' mail adres?",
-    query: "SELECT naam, emails FROM people WHERE EXISTS (SELECT true FROM UNNEST(emails) AS t(e) WHERE e LIKE '%hotmail.com')",
+    query: "SELECT p.naam, e.email FROM people AS p, UNNEST(p.emails) AS e(email) WHERE e.email LIKE '%hotmail.com'",
   },
 ];
 
