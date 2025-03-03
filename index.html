@@ -8,37 +8,41 @@
     <script src="eindopdracht.js"></script>
 
     <script async type="module">
-      const database = await fetch("data.json").then((r) => r.json());
+      import conn from "./database.js";
+      import queries from "./queries.js";
+
+      const is_string = (s) => typeof s === "string" || s instanceof String;
+      const is_array = (a) => Array.isArray(a) && is_string(a[0]);
 
       const serialize = (d) => {
-        if (typeof d === "string" || d instanceof String) return d;
-        if (Array.isArray(d)) return d.join(", ");
+        if (is_string(d)) return d;
+        if (is_array(d)) return d.join(", ");
         else return JSON.stringify(d, undefined, 2);
       };
 
-      for (const vraag of vragen) {
-        const vraagHeader = document.createElement("header");
-        const antwoordHeader = document.createElement("header");
-        const vraagElement = document.createElement("div");
-        const antwoordElement = document.createElement("div");
+      for (const query of queries) {
+        const containerElement = document.createElement("section");
+        const questionHeader = document.createElement("header");
+        const anwserHeader = document.createElement("header");
+        const questionElement = document.createElement("div");
+        const anwserElement = document.createElement("div");
 
-        vraagHeader.textContent = "Vraag";
-        vraagElement.textContent = vraag.vraag;
-        antwoordHeader.textContent = "Antwoord";
+        questionHeader.textContent = "Vraag";
+        questionElement.textContent = query.title;
+        anwserHeader.textContent = "Antwoord";
 
         try {
-          const antwoord = vraag.antwoord(database);
-          antwoordElement.textContent = serialize(antwoord);
+          const result = await conn.query(query.query);
+          anwserElement.textContent = serialize(result);
         } catch (e) {
           console.error(e.message);
-          antwoordElement.textContent = serialize(e.message);
+          anwserElement.textContent = serialize(e.message);
         }
 
-        const containerElement = document.createElement("section");
-        containerElement.appendChild(vraagHeader);
-        containerElement.appendChild(vraagElement);
-        containerElement.appendChild(antwoordHeader);
-        containerElement.appendChild(antwoordElement);
+        containerElement.appendChild(questionHeader);
+        containerElement.appendChild(questionElement);
+        containerElement.appendChild(anwserHeader);
+        containerElement.appendChild(anwserElement);
 
         document.body.appendChild(containerElement);
       }
