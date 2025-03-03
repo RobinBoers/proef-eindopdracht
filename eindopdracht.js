@@ -1,6 +1,6 @@
 const count = (condition) => {
   return (database) => {
-    return query(condition)(database);
+    return query(condition)(database).length;
   };
 };
 
